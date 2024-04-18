@@ -17,6 +17,7 @@ PHP v8.2.12
 MySQL
 <br>
 ``10.4.32-MariaDB``
+Please find the exported database file in the **db** folder above named as **db_user-portal.sql**
 ## How to use
 * Clone the repository with **git clone**
 * Copy .env.example file to .env and edit database credentials there.
