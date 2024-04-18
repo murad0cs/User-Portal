@@ -12,7 +12,7 @@ Admins can see all the users list and download the ID Verification file. Users a
 Laravel v11.3.0
 PHP v8.2.12
 ```
-**Database**
+## Database
 <br/>
 MySQL
 <br>
