@@ -84,9 +84,13 @@ Every time when a registered user try to log in, will get a verification code to
 
 ![image_10](image-12.png)
 
-**Forget Password / Reset Password Mail**
+**Forget Password / Reset Password Mail Verification Page**
 
 ![image_11](image-13.png)
+
+**Forget Password / Reset Password Mail**
+
+![image](https://github.com/murad0cs/user-portal/assets/65944713/b12b6759-f487-4725-978b-318d3b02094a)
 
 **Admin Search Option**
 
