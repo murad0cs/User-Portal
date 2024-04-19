@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -11,6 +11,7 @@
                 <div class="card-header text-center">{{ __('Register Your Account') }}</div>
 
                 <div class="card-body">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
@@ -73,7 +74,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                                <span id="email-error" class="invalid-feedback" role="alert"></span>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -145,6 +146,38 @@
                                 Already have an account? <a class="link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </div>
                         </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#email').on('blur', function () {
+                                var email = $(this).val();
+
+                                $.ajax({
+                                    headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                    },
+                                    method: 'POST',
+                                    url: 'http://127.0.0.1:8000/check-email',
+                                    // allowCredentials: true,
+                                    //dataType : 'json',
+                                    data: { 
+                                        email: email,
+                                        _token: '{{ csrf_token() }}'
+                                    }
+                                }).done(function (response) {
+                                    if (response.exists) {
+                                        $('#emailError').text('This email is already taken.');
+                                        $('#email').addClass('is-invalid');
+                                    } else {
+                                        $('#emailError').text('');
+                                        $('#email').removeClass('is-invalid');
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
                     </form>
                 </div>
             </div>

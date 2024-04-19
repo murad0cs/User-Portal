@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\RegisterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +35,6 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('/change-password', [UserController::class, 'changePassword'])->name('changePassword');
     Route::post('/change-password', [UserController::class, 'changePasswordSave'])->name('postChangePassword');
 });
+
+Auth::routes();
+Route::post('/check-email', [RegisterController::class, 'checkEmail'])->name('checkEmail');

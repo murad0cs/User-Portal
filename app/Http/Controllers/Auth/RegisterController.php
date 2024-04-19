@@ -91,4 +91,30 @@ class RegisterController extends Controller
 
         return $user;
     }
+
+    public function checkEmail(Request $request)
+    {
+        Log::info('Reached checkEmail method');
+        try {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+            $email = $request->input('email');
+
+            $user = User::where('email', $email)->first();
+
+            if ($user) {
+                // Email already exists
+                return response()->json(['exists' => true]);
+            }
+
+            // Email does not exist
+            return response()->json(['exists' => false]);
+        } catch (\Exception $e) {
+            // Log the exception for further investigation
+            \Log::error($e->getMessage());
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
+
+    }
 }
